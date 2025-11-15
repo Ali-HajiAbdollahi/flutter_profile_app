@@ -60,8 +60,23 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyHomePage extends StatelessWidget {
+class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
+
+  @override
+  State<MyHomePage> createState() => _MyHomePageState();
+}
+
+enum SkillType { photoshop, xd, illustrator, afterEffect, lightRoom }
+
+class _MyHomePageState extends State<MyHomePage> {
+  SkillType skillType = SkillType.photoshop;
+
+  void updateSelectedSkill(SkillType type) {
+    setState(() {
+      skillType = type;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -142,7 +157,7 @@ class MyHomePage extends StatelessWidget {
           Divider(),
 
           Padding(
-            padding: const EdgeInsets.fromLTRB(32, 16, 32, 16),
+            padding: const EdgeInsets.fromLTRB(32, 16, 32, 10),
             child: Row(
               children: [
                 Text(
@@ -163,110 +178,118 @@ class MyHomePage extends StatelessWidget {
               spacing: 8,
               runSpacing: 8,
               children: [
-                Container(
-                  width: 110,
-                  height: 110,
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).dividerColor,
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image.asset(
-                        'assets/images/app_icon_01.png',
-                        width: 50,
-                        height: 50,
-                      ),
-                      SizedBox(height: 4),
-                      Text("Photoshop"),
-                    ],
-                  ),
+                SkillItems(
+                  type: SkillType.photoshop,
+                  title: "Photoshop",
+                  imagePath: "assets/images/app_icon_01.png",
+                  shadowColor: Colors.blue,
+                  isActive: skillType == SkillType.photoshop,
+                  onClick: () {
+                    updateSelectedSkill(SkillType.photoshop);
+                  },
                 ),
-                Container(
-                  width: 110,
-                  height: 110,
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).dividerColor,
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image.asset(
-                        'assets/images/app_icon_02.png',
-                        width: 50,
-                        height: 50,
-                      ),
-                      SizedBox(height: 4),
-                      Text("Lightroom"),
-                    ],
-                  ),
+                SkillItems(
+                  type: SkillType.lightRoom,
+                  title: "Lightroom",
+                  imagePath: "assets/images/app_icon_02.png",
+                  shadowColor: Colors.blue,
+                  isActive: skillType == SkillType.lightRoom,
+                  onClick: () {
+                    updateSelectedSkill(SkillType.lightRoom);
+                  },
                 ),
-                Container(
-                  width: 110,
-                  height: 110,
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).dividerColor,
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image.asset(
-                        'assets/images/app_icon_03.png',
-                        width: 50,
-                        height: 50,
-                      ),
-                      SizedBox(height: 4),
-                      Text("After Effect"),
-                    ],
-                  ),
+                SkillItems(
+                  type: SkillType.afterEffect,
+                  title: "AfterEffect",
+                  imagePath: "assets/images/app_icon_03.png",
+                  shadowColor: Colors.blue.shade800,
+                  isActive: skillType == SkillType.afterEffect,
+                  onClick: () {
+                    updateSelectedSkill(SkillType.afterEffect);
+                  },
                 ),
-                Container(
-                  width: 110,
-                  height: 110,
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).dividerColor,
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image.asset(
-                        'assets/images/app_icon_04.png',
-                        width: 50,
-                        height: 50,
-                      ),
-                      SizedBox(height: 4),
-                      Text("Illustrator"),
-                    ],
-                  ),
+                SkillItems(
+                  type: SkillType.illustrator,
+                  title: "Illustrator",
+                  imagePath: "assets/images/app_icon_04.png",
+                  shadowColor: Colors.orange,
+                  isActive: skillType == SkillType.illustrator,
+                  onClick: () {
+                    updateSelectedSkill(SkillType.illustrator);
+                  },
                 ),
-                Container(
-                  width: 110,
-                  height: 110,
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).dividerColor,
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image.asset(
-                        'assets/images/app_icon_05.png',
-                        width: 50,
-                        height: 50,
-                      ),
-                      SizedBox(height: 4),
-                      Text("Adobe XD"),
-                    ],
-                  ),
+                SkillItems(
+                  type: SkillType.xd,
+                  title: "Adobe XD",
+                  imagePath: "assets/images/app_icon_05.png",
+                  shadowColor: Colors.pink,
+                  isActive: skillType == SkillType.xd,
+                  onClick: () {
+                    updateSelectedSkill(SkillType.xd);
+                  },
                 ),
               ],
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class SkillItems extends StatelessWidget {
+  final SkillType type;
+  final String title;
+  final String imagePath;
+  final Color shadowColor;
+  final bool isActive;
+  final Function() onClick;
+  const SkillItems({
+    super.key,
+    required this.title,
+    required this.imagePath,
+    required this.shadowColor,
+    required this.isActive,
+    required this.type,
+    required this.onClick,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onClick,
+      borderRadius: BorderRadius.circular(12),
+      child: Container(
+        width: 110,
+        height: 110,
+        decoration:
+            isActive
+                ? BoxDecoration(
+                  color: Theme.of(context).dividerColor,
+                  borderRadius: BorderRadius.circular(12),
+                )
+                : null,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              decoration:
+                  isActive
+                      ? BoxDecoration(
+                        boxShadow: [
+                          BoxShadow(
+                            color: shadowColor.withValues(alpha: 0.5),
+                            blurRadius: 20,
+                          ),
+                        ],
+                      )
+                      : null,
+              child: Image.asset(imagePath, width: 50, height: 50),
+            ),
+            SizedBox(height: 8),
+            Text(title),
+          ],
+        ),
       ),
     );
   }
