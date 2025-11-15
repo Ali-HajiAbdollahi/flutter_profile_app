@@ -12,6 +12,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    var surfaceColor = Color(0x0dffffff);
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
@@ -33,6 +34,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         primaryColor: Colors.pink.shade400,
         brightness: Brightness.dark,
+        dividerColor: surfaceColor,
         scaffoldBackgroundColor: Color.fromARGB(255, 30, 30, 30),
         appBarTheme: AppBarTheme(
           color: Colors.black,
@@ -45,8 +47,11 @@ class MyApp extends StatelessWidget {
         textTheme: GoogleFonts.latoTextTheme(
           TextTheme(
             bodyMedium: TextStyle(fontSize: 15),
-            bodyLarge: TextStyle(fontSize: 13 , color: Color.fromARGB(200, 255, 255, 255)),
-            titleLarge: TextStyle(fontSize: 16 , fontWeight: FontWeight.bold),
+            bodyLarge: TextStyle(
+              fontSize: 13,
+              color: Color.fromARGB(200, 255, 255, 255),
+            ),
+            titleLarge: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
           ),
         ),
       ),
@@ -73,6 +78,7 @@ class MyHomePage extends StatelessWidget {
       ),
 
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
             padding: const EdgeInsets.fromLTRB(32, 32, 32, 16),
@@ -92,22 +98,36 @@ class MyHomePage extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Ali Hajiabdollahi', style: Theme.of(context).textTheme.titleLarge,),
+                        Text(
+                          'Ali Hajiabdollahi',
+                          style: Theme.of(context).textTheme.titleLarge,
+                        ),
                         SizedBox(height: 2),
                         Text('Mobile applications Developer'),
                         SizedBox(height: 4),
                         Row(
                           children: [
-                            Icon(CupertinoIcons.location_solid, size: 14 , color: Theme.of(context).textTheme.bodyLarge!.color,),
+                            Icon(
+                              CupertinoIcons.location_solid,
+                              size: 14,
+                              color:
+                                  Theme.of(context).textTheme.bodyLarge!.color,
+                            ),
                             SizedBox(width: 3),
-                            Text("Italy, Torino", style: Theme.of(context).textTheme.bodySmall),
+                            Text(
+                              "Italy, Torino",
+                              style: Theme.of(context).textTheme.bodySmall,
+                            ),
                           ],
                         ),
                       ],
                     ),
                   ),
                 ),
-                Icon(CupertinoIcons.heart, color: Theme.of(context).primaryColor,),
+                Icon(
+                  CupertinoIcons.heart,
+                  color: Theme.of(context).primaryColor,
+                ),
               ],
             ),
           ),
@@ -116,10 +136,136 @@ class MyHomePage extends StatelessWidget {
             padding: const EdgeInsets.fromLTRB(32, 0, 32, 16),
             child: Text(
               "Passionate about Flutter, mobile app development, and artificial intelligence Dedicated to continuous learning and building impactful real-world applications.",
-              style: Theme.of(context).textTheme.bodyLarge, 
+              style: Theme.of(context).textTheme.bodyLarge,
             ),
           ),
           Divider(),
+
+          Padding(
+            padding: const EdgeInsets.fromLTRB(32, 16, 32, 16),
+            child: Row(
+              children: [
+                Text(
+                  "Skills",
+                  style: Theme.of(
+                    context,
+                  ).textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w900),
+                ),
+                SizedBox(width: 4),
+                Icon(CupertinoIcons.chevron_down, size: 12),
+              ],
+            ),
+          ),
+
+          Center(
+            child: Wrap(
+              direction: Axis.horizontal,
+              spacing: 8,
+              runSpacing: 8,
+              children: [
+                Container(
+                  width: 110,
+                  height: 110,
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).dividerColor,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset(
+                        'assets/images/app_icon_01.png',
+                        width: 50,
+                        height: 50,
+                      ),
+                      SizedBox(height: 4),
+                      Text("Photoshop"),
+                    ],
+                  ),
+                ),
+                Container(
+                  width: 110,
+                  height: 110,
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).dividerColor,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset(
+                        'assets/images/app_icon_02.png',
+                        width: 50,
+                        height: 50,
+                      ),
+                      SizedBox(height: 4),
+                      Text("Lightroom"),
+                    ],
+                  ),
+                ),
+                Container(
+                  width: 110,
+                  height: 110,
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).dividerColor,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset(
+                        'assets/images/app_icon_03.png',
+                        width: 50,
+                        height: 50,
+                      ),
+                      SizedBox(height: 4),
+                      Text("After Effect"),
+                    ],
+                  ),
+                ),
+                Container(
+                  width: 110,
+                  height: 110,
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).dividerColor,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset(
+                        'assets/images/app_icon_04.png',
+                        width: 50,
+                        height: 50,
+                      ),
+                      SizedBox(height: 4),
+                      Text("Illustrator"),
+                    ],
+                  ),
+                ),
+                Container(
+                  width: 110,
+                  height: 110,
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).dividerColor,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset(
+                        'assets/images/app_icon_05.png',
+                        width: 50,
+                        height: 50,
+                      ),
+                      SizedBox(height: 4),
+                      Text("Adobe XD"),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     );
