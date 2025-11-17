@@ -36,6 +36,15 @@ class MyApp extends StatelessWidget {
         brightness: Brightness.dark,
         dividerColor: surfaceColor,
         scaffoldBackgroundColor: Color.fromARGB(255, 30, 30, 30),
+        inputDecorationTheme: InputDecorationTheme(
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8),
+            borderSide: BorderSide.none,
+          ),
+          filled: true,
+          fillColor: surfaceColor,
+        ),
+        elevatedButtonTheme: ElevatedButtonThemeData(style: ButtonStyle(backgroundColor: WidgetStatePropertyAll(Colors.pink.shade400))),
         appBarTheme: AppBarTheme(
           color: Colors.black,
           titleTextStyle: GoogleFonts.lato(
@@ -67,10 +76,10 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-enum SkillType { photoshop, xd, illustrator, afterEffect, lightRoom }
+enum SkillType { photoshop, xd, illustrator, afterEffect, lightRoom, nothing }
 
 class _MyHomePageState extends State<MyHomePage> {
-  SkillType skillType = SkillType.photoshop;
+  SkillType skillType = SkillType.nothing;
 
   void updateSelectedSkill(SkillType type) {
     setState(() {
@@ -92,146 +101,190 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
       ),
 
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.fromLTRB(32, 32, 32, 16),
-            child: Row(
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(8),
-                  child: Image.asset(
-                    'assets/images/profile_image.png',
-                    width: 60,
-                    height: 60,
-                  ),
-                ),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(16, 0, 0, 0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Ali Hajiabdollahi',
-                          style: Theme.of(context).textTheme.titleLarge,
-                        ),
-                        SizedBox(height: 2),
-                        Text('Mobile applications Developer'),
-                        SizedBox(height: 4),
-                        Row(
-                          children: [
-                            Icon(
-                              CupertinoIcons.location_solid,
-                              size: 14,
-                              color:
-                                  Theme.of(context).textTheme.bodyLarge!.color,
-                            ),
-                            SizedBox(width: 3),
-                            Text(
-                              "Italy, Torino",
-                              style: Theme.of(context).textTheme.bodySmall,
-                            ),
-                          ],
-                        ),
-                      ],
+      body: SingleChildScrollView(
+        physics: BouncingScrollPhysics(),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.fromLTRB(32, 32, 32, 16),
+              child: Row(
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(8),
+                    child: Image.asset(
+                      'assets/images/profile_image.png',
+                      width: 60,
+                      height: 60,
                     ),
                   ),
-                ),
-                Icon(
-                  CupertinoIcons.heart,
-                  color: Theme.of(context).primaryColor,
-                ),
-              ],
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(16, 0, 0, 0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Ali Hajiabdollahi',
+                            style: Theme.of(context).textTheme.titleLarge,
+                          ),
+                          SizedBox(height: 2),
+                          Text('Mobile applications Developer'),
+                          SizedBox(height: 4),
+                          Row(
+                            children: [
+                              Icon(
+                                CupertinoIcons.location_solid,
+                                size: 14,
+                                color:
+                                    Theme.of(
+                                      context,
+                                    ).textTheme.bodyLarge!.color,
+                              ),
+                              SizedBox(width: 3),
+                              Text(
+                                "Italy, Torino",
+                                style: Theme.of(context).textTheme.bodySmall,
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Icon(
+                    CupertinoIcons.heart,
+                    color: Theme.of(context).primaryColor,
+                  ),
+                ],
+              ),
             ),
-          ),
-          SizedBox(height: 16),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(32, 0, 32, 16),
-            child: Text(
-              "Passionate about Flutter, mobile app development, and artificial intelligence Dedicated to continuous learning and building impactful real-world applications.",
-              style: Theme.of(context).textTheme.bodyLarge,
+            SizedBox(height: 16),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(32, 0, 32, 16),
+              child: Text(
+                "Passionate about Flutter, mobile app development, and artificial intelligence Dedicated to continuous learning and building impactful real-world applications.",
+                style: Theme.of(context).textTheme.bodyLarge,
+              ),
             ),
-          ),
-          Divider(),
+            Divider(),
 
-          Padding(
-            padding: const EdgeInsets.fromLTRB(32, 16, 32, 10),
-            child: Row(
-              children: [
-                Text(
-                  "Skills",
-                  style: Theme.of(
-                    context,
-                  ).textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.w900),
-                ),
-                SizedBox(width: 4),
-                Icon(CupertinoIcons.chevron_down, size: 12),
-              ],
+            Padding(
+              padding: const EdgeInsets.fromLTRB(32, 12, 32, 10),
+              child: Row(
+                children: [
+                  Text(
+                    "Skills",
+                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                      fontWeight: FontWeight.w900,
+                    ),
+                  ),
+                  SizedBox(width: 4),
+                  Icon(CupertinoIcons.chevron_down, size: 12),
+                ],
+              ),
             ),
-          ),
 
-          Center(
-            child: Wrap(
-              direction: Axis.horizontal,
-              spacing: 8,
-              runSpacing: 8,
-              children: [
-                SkillItems(
-                  type: SkillType.photoshop,
-                  title: "Photoshop",
-                  imagePath: "assets/images/app_icon_01.png",
-                  shadowColor: Colors.blue,
-                  isActive: skillType == SkillType.photoshop,
-                  onClick: () {
-                    updateSelectedSkill(SkillType.photoshop);
-                  },
-                ),
-                SkillItems(
-                  type: SkillType.lightRoom,
-                  title: "Lightroom",
-                  imagePath: "assets/images/app_icon_02.png",
-                  shadowColor: Colors.blue,
-                  isActive: skillType == SkillType.lightRoom,
-                  onClick: () {
-                    updateSelectedSkill(SkillType.lightRoom);
-                  },
-                ),
-                SkillItems(
-                  type: SkillType.afterEffect,
-                  title: "AfterEffect",
-                  imagePath: "assets/images/app_icon_03.png",
-                  shadowColor: Colors.blue.shade800,
-                  isActive: skillType == SkillType.afterEffect,
-                  onClick: () {
-                    updateSelectedSkill(SkillType.afterEffect);
-                  },
-                ),
-                SkillItems(
-                  type: SkillType.illustrator,
-                  title: "Illustrator",
-                  imagePath: "assets/images/app_icon_04.png",
-                  shadowColor: Colors.orange,
-                  isActive: skillType == SkillType.illustrator,
-                  onClick: () {
-                    updateSelectedSkill(SkillType.illustrator);
-                  },
-                ),
-                SkillItems(
-                  type: SkillType.xd,
-                  title: "Adobe XD",
-                  imagePath: "assets/images/app_icon_05.png",
-                  shadowColor: Colors.pink,
-                  isActive: skillType == SkillType.xd,
-                  onClick: () {
-                    updateSelectedSkill(SkillType.xd);
-                  },
-                ),
-              ],
+            Center(
+              child: Wrap(
+                direction: Axis.horizontal,
+                spacing: 8,
+                runSpacing: 8,
+                children: [
+                  SkillItems(
+                    type: SkillType.photoshop,
+                    title: "Photoshop",
+                    imagePath: "assets/images/app_icon_01.png",
+                    shadowColor: Colors.blue,
+                    isActive: skillType == SkillType.photoshop,
+                    onClick: () {
+                      updateSelectedSkill(SkillType.photoshop);
+                    },
+                  ),
+                  SkillItems(
+                    type: SkillType.lightRoom,
+                    title: "Lightroom",
+                    imagePath: "assets/images/app_icon_02.png",
+                    shadowColor: Colors.blue,
+                    isActive: skillType == SkillType.lightRoom,
+                    onClick: () {
+                      updateSelectedSkill(SkillType.lightRoom);
+                    },
+                  ),
+                  SkillItems(
+                    type: SkillType.afterEffect,
+                    title: "AfterEffect",
+                    imagePath: "assets/images/app_icon_03.png",
+                    shadowColor: Colors.blue.shade800,
+                    isActive: skillType == SkillType.afterEffect,
+                    onClick: () {
+                      updateSelectedSkill(SkillType.afterEffect);
+                    },
+                  ),
+                  SkillItems(
+                    type: SkillType.illustrator,
+                    title: "Illustrator",
+                    imagePath: "assets/images/app_icon_04.png",
+                    shadowColor: Colors.orange,
+                    isActive: skillType == SkillType.illustrator,
+                    onClick: () {
+                      updateSelectedSkill(SkillType.illustrator);
+                    },
+                  ),
+                  SkillItems(
+                    type: SkillType.xd,
+                    title: "Adobe XD",
+                    imagePath: "assets/images/app_icon_05.png",
+                    shadowColor: Colors.pink,
+                    isActive: skillType == SkillType.xd,
+                    onClick: () {
+                      updateSelectedSkill(SkillType.xd);
+                    },
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+            Divider(),
+
+            Padding(
+              padding: const EdgeInsets.fromLTRB(32, 12, 32, 12),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Personal Informations",
+                    style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                      fontWeight: FontWeight.w900,
+                    ),
+                  ),
+                  SizedBox(height: 12),
+                  TextField(
+                    decoration: InputDecoration(
+                      labelText: "Email",
+                      prefixIcon: Icon(CupertinoIcons.at),
+                    ),
+                  ),
+                  SizedBox(height: 8),
+                  TextField(
+                    decoration: InputDecoration(
+                      labelText: "Password",
+                      prefixIcon: Icon(CupertinoIcons.lock),
+                    ),
+                  ),
+                  SizedBox(height: 12,),
+                  SizedBox(
+                    height: 48,
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: () {},
+                      child: Text("Save"),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -284,7 +337,7 @@ class SkillItems extends StatelessWidget {
                         ],
                       )
                       : null,
-              child: Image.asset(imagePath, width: 50, height: 50),
+              child: Image.asset(imagePath, width: 45, height: 45),
             ),
             SizedBox(height: 8),
             Text(title),
