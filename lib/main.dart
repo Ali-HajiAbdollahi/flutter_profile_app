@@ -6,72 +6,116 @@ void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  ThemeMode themeMode = ThemeMode.dark;
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    var surfaceColor = Color(0x0dffffff);
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a purple toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
-        primarySwatch: Colors.blue,
-        primaryColor: Colors.pink.shade400,
-        brightness: Brightness.dark,
-        dividerColor: surfaceColor,
-        scaffoldBackgroundColor: Color.fromARGB(255, 30, 30, 30),
-        inputDecorationTheme: InputDecorationTheme(
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8),
-            borderSide: BorderSide.none,
-          ),
-          filled: true,
-          fillColor: surfaceColor,
+      theme:
+          themeMode == ThemeMode.dark
+              ? MyAppThemeConfig.dark().getAppTheme()
+              : MyAppThemeConfig.light().getAppTheme(),
+      home: MyHomePage(toggleThemeMode: () {
+        setState(() {
+          if (themeMode == ThemeMode.dark) {
+            themeMode = ThemeMode.light;
+          } else {
+            themeMode = ThemeMode.dark;
+          }
+        });
+      }),
+    );
+  }
+}
+
+class MyAppThemeConfig {
+  final Color surfaceColor;
+  final Brightness brightness;
+  final Color scaffoldBackgroundColor;
+  final Color appBarColor;
+  final Color appBarTextColor;
+  final Color bodyLargeColor;
+
+  MyAppThemeConfig.dark()
+    : appBarColor = Colors.black,
+      brightness = Brightness.dark,
+      scaffoldBackgroundColor = Color.fromARGB(255, 30, 30, 30),
+      surfaceColor = Color(0x0dffffff),
+      appBarTextColor = Colors.white,
+      bodyLargeColor = Color.fromARGB(200, 255, 255, 255);
+
+  MyAppThemeConfig.light()
+    : appBarColor = Colors.white,
+      brightness = Brightness.light,
+      scaffoldBackgroundColor = Colors.white,
+      surfaceColor = Color(0x0d000000),
+      appBarTextColor = Colors.black,
+      bodyLargeColor = Color.fromARGB(200, 0, 0, 0);
+
+  ThemeData getAppTheme() {
+    return ThemeData(
+      // This is the theme of your application.
+      //
+      // TRY THIS: Try running your application with "flutter run". You'll see
+      // the application has a purple toolbar. Then, without quitting the app,
+      // try changing the seedColor in the colorScheme below to Colors.green
+      // and then invoke "hot reload" (save your changes or press the "hot
+      // reload" button in a Flutter-supported IDE, or press "r" if you used
+      // the command line to start the app).
+      //
+      // Notice that the counter didn't reset back to zero; the application
+      // state is not lost during the reload. To reset the state, use hot
+      // restart instead.
+      //
+      // This works for code too, not just values: Most code changes can be
+      // tested with just a hot reload.
+      brightness: brightness,
+      dividerColor: surfaceColor,
+      scaffoldBackgroundColor: scaffoldBackgroundColor,
+      inputDecorationTheme: InputDecorationTheme(
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8),
+          borderSide: BorderSide.none,
         ),
-        elevatedButtonTheme: ElevatedButtonThemeData(style: ButtonStyle(backgroundColor: WidgetStatePropertyAll(Colors.pink.shade400))),
-        appBarTheme: AppBarTheme(
-          color: Colors.black,
-          titleTextStyle: GoogleFonts.lato(
-            fontWeight: FontWeight.bold,
-            fontSize: 22,
-            color: Colors.white,
-          ),
-        ),
-        textTheme: GoogleFonts.latoTextTheme(
-          TextTheme(
-            bodyMedium: TextStyle(fontSize: 15),
-            bodyLarge: TextStyle(
-              fontSize: 13,
-              color: Color.fromARGB(200, 255, 255, 255),
-            ),
-            titleLarge: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-          ),
+        filled: true,
+        fillColor: surfaceColor,
+      ),
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ButtonStyle(
+          backgroundColor: WidgetStatePropertyAll(Colors.pink.shade400),
         ),
       ),
-      home: MyHomePage(),
+      appBarTheme: AppBarTheme(
+        color: appBarColor,
+        titleTextStyle: GoogleFonts.lato(
+          fontWeight: FontWeight.bold,
+          fontSize: 22,
+          color: appBarTextColor,
+        ),
+      ),
+      textTheme: GoogleFonts.latoTextTheme(
+        TextTheme(
+          bodyMedium: TextStyle(fontSize: 15),
+          bodyLarge: TextStyle(fontSize: 13, color: bodyLargeColor),
+          titleLarge: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+        ),
+      ),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key});
-
+  final Function() toggleThemeMode;
+  const MyHomePage({super.key, required this.toggleThemeMode});
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
@@ -96,7 +140,10 @@ class _MyHomePageState extends State<MyHomePage> {
           Icon(CupertinoIcons.chat_bubble),
           Padding(
             padding: const EdgeInsets.fromLTRB(8, 0, 16, 0),
-            child: Icon(CupertinoIcons.ellipsis_vertical),
+            child: InkWell(
+              onTap: widget.toggleThemeMode,
+              child: Icon(CupertinoIcons.ellipsis_vertical),
+            ),
           ),
         ],
       ),
@@ -154,7 +201,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                   Icon(
                     CupertinoIcons.heart,
-                    color: Theme.of(context).primaryColor,
+                    color: Colors.pink,
                   ),
                 ],
               ),
@@ -271,7 +318,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       prefixIcon: Icon(CupertinoIcons.lock),
                     ),
                   ),
-                  SizedBox(height: 12,),
+                  SizedBox(height: 12),
                   SizedBox(
                     height: 48,
                     width: double.infinity,
