@@ -23,6 +23,24 @@ This is my inaugural Flutter development project, created to learn mobile app de
 - **Material Design** - UI design system
 - **Asset Management** - Image and resource handling
 
+## 📥 Download & Install
+
+### 📱 Ready to use APK
+Download the latest release and install directly on your Android device:
+
+[![Download APK](https://img.shields.io/badge/Download-APK-brightgreen?style=for-the-badge&logo=android)](https://github.com/Ali-HajiAbdollahi/flutter_profile_app/releases/download/v1.0.0/FlutterProfileCV-v1.0.0.apk)
+
+**Latest Version**: v1.0.0  
+**File Size**: ~20MB  
+**Compatibility**: Android 5.0+ (API level 21+)
+
+### 📋 Installation Steps
+1. Download the APK from the link above
+2. Enable "Install from Unknown Sources" in your Android settings
+3. Open the downloaded APK file
+4. Follow the installation prompts
+5. Enjoy the Flutter Profile CV app!
+
 ## 📱 App Screenshots
 
 ### Light Theme
@@ -31,7 +49,7 @@ This is my inaugural Flutter development project, created to learn mobile app de
 ### Dark Theme
 ![Dark Theme Screenshot](screenshots/dark_theme.png)
 
-## 🚀 Getting Started
+## 🚀 Getting Started (For Developers)
 
 ### Prerequisites
 - Flutter SDK (3.29.0 or higher)
