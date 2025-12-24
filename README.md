@@ -44,10 +44,14 @@ Download the latest release and install directly on your Android device:
 ## 📱 App Screenshots
 
 ### Light Theme
-![Light Theme Screenshot](screenshots/light_theme.png)
+<p align="left">
+  <img src="screenshots/light_theme.png" width="250" alt="Light Theme Screenshot"/>
+</p>
 
 ### Dark Theme
-![Dark Theme Screenshot](screenshots/dark_theme.png)
+<p align="left">
+  <img src="screenshots/dark_theme.png" width="250" alt="Dark Theme Screenshot"/>
+</p>
 
 ## 🚀 Getting Started (For Developers)
 
